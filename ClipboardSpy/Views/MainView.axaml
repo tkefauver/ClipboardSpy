@@ -65,6 +65,7 @@
             <GridSplitter Grid.Row="0"
                           VerticalAlignment="Bottom"
                           ResizeDirection="Rows"
+                          Background="Gray"
                           Height="1" />
         </Grid>
     </DockPanel>
