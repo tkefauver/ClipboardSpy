@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ClipboardSpy.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="ClipboardSpy.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <UserControl.Styles>
+        <Style Selector="Grid#ContainerGrid SelectableTextBlock#DataTextBlock">
+            <Setter Property="TextWrapping"
+                    Value="NoWrap" />
+        </Style>
+        <Style Selector="Grid#ContainerGrid.wrap SelectableTextBlock#DataTextBlock">
+            <Setter Property="TextWrapping"
+                    Value="WrapWithOverflow" />
+        </Style>
+        <Style Selector="ListBoxItem SelectableTextBlock">
+            <Setter Property="IsHitTestVisible"
+                    Value="False" />
+        </Style>
+        <Style Selector="ListBoxItem:selected SelectableTextBlock">
+            <Setter Property="IsHitTestVisible"
+                    Value="True" />
+        </Style>
+    </UserControl.Styles>
+    <DockPanel>
+
+        <Border DockPanel.Dock="Bottom"
+                BorderThickness="0,1,0,0"
+                BorderBrush="Gray"
+                Padding="5"
+                DataContext="{Binding SelectedItem, ElementName=lb}"
+                x:DataType="vm:FormatViewModel">
+            <SelectableTextBlock DockPanel.Dock="Bottom"
+                                 Text="{Binding FormatType}" />
+        </Border>
+        <Grid x:Name="ContainerGrid"
+              RowDefinitions="0.5*,0.5*"
+              Classes.wrap="{Binding IsTextWrapped}">
+
+            <ListBox x:Name="lb"
+                     DragDrop.AllowDrop="True"
+                     Grid.Row="0"
+                     SelectionMode="Single,AlwaysSelected"
+                     ItemsSource="{Binding Items}"
+                     SelectedItem="{Binding SelectedItem}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <SelectableTextBlock Text="{Binding FormatName}" />
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ScrollViewer Grid.Row="1"
+                          DataContext="{Binding SelectedItem, ElementName=lb}"
+                          x:DataType="vm:FormatViewModel">
+                <SelectableTextBlock x:Name="DataTextBlock"
+                                     Margin="5"
+                                     Text="{Binding FormatDataDisplayValue}" />
+            </ScrollViewer>
+            <GridSplitter Grid.Row="0"
+                          VerticalAlignment="Bottom"
+                          ResizeDirection="Rows"
+                          Height="1" />
+        </Grid>
+    </DockPanel>
+
+
+</UserControl>

@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ClipboardSpy.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:ClipboardSpy.Views"
+        x:DataType="vm:MainViewModel"
+        mc:Ignorable="d"
+        d:DesignWidth="800"
+        d:DesignHeight="450"
+        x:Class="ClipboardSpy.Views.MainWindow"
+        Icon="/Assets/spyguy.ico"
+        Title="Clipboard Spy">
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+R"
+                    Command="{Binding ReadClipboardCommand}" />
+        <KeyBinding Gesture="Ctrl+T"
+                    Command="{Binding ClearClipboardCommand}" />
+        <KeyBinding Gesture="Ctrl+Q"
+                    Command="{Binding ExitApplicationCommand}" />
+        <KeyBinding Gesture="Ctrl+W"
+                    Command="{Binding ToggleTextWrappingCommand}" />
+    </Window.KeyBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Read Clipboard"
+                          HotKey="Ctrl+R"
+                          InputGesture="Ctrl+R"
+                          Command="{Binding ReadClipboardCommand}" />
+                <MenuItem Header="Clear Clipboard"
+                          HotKey="Ctrl+T"
+                          InputGesture="Ctrl+T"
+                          Command="{Binding ClearClipboardCommand}" />
+                <Separator />
+                <MenuItem Header="_Exit"
+                          HotKey="Ctrl+Q"
+                          InputGesture="Ctrl+Q"
+                          Command="{Binding ExitApplicationCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Wrap Text"
+                          HotKey="Ctrl+W"
+                          InputGesture="Ctrl+W"
+                          Command="{Binding ToggleTextWrappingCommand}">
+                    <MenuItem.Icon>
+                        <CheckBox IsHitTestVisible="False"
+                                  IsChecked="{Binding IsTextWrapped, Mode=OneWay}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <views:MainView />
+    </DockPanel>
+</Window>
