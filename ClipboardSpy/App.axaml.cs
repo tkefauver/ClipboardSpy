@@ -22,7 +22,9 @@ public partial class App : Application {
                 DataContext = new MainViewModel()
             };
         }
+#if DEBUG
         this.AttachDevTools();
+#endif
         base.OnFrameworkInitializationCompleted();
     }
 }

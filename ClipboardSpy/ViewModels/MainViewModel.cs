@@ -61,7 +61,7 @@ public class MainViewModel : ViewModelBase {
         await cb.ClearAsync();
     });
 
-    public ICommand ExitApplicationCommand => ReactiveCommand.Create(async () => {
+    public ICommand ExitApplicationCommand => ReactiveCommand.Create(() => {
         if (Application.Current.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime cda) {
             return;
         }
